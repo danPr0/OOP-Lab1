@@ -1,13 +1,11 @@
 package util;
 
+import entity.Cell;
 import frame.MyFrame;
-import jxl.CellType;
 import jxl.Workbook;
-import jxl.format.CellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import entity.Cell;
 import service.TableService;
 
 import javax.swing.*;
@@ -58,8 +56,8 @@ public class ReportCreator implements ActionListener {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 try {
-                    if (!table[i][j].getExpression().isEmpty())
-                        sheet.addCell(new jxl.write.Formula(j, i, table[i][j].getExpression()));
+                    if (table[i][j].getResult() != null)
+                        sheet.addCell(new jxl.write.Number(j, i, table[i][j].getResult()));
                 } catch (WriteException e) {
                     e.printStackTrace();
                 }

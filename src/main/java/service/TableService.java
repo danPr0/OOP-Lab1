@@ -62,7 +62,12 @@ public class TableService implements ActionListener {
         currentCell.setExpression(mainInput.getText());
 //        currentCell.setSelected(false);
         currentCell.requestFocus();
-        parseRecursion(currentCell, mainInput.getText());
+
+        if (mainInput.getText().isBlank()) {
+            currentCell.setResult("");
+            values.remove(currentCell.getLink());
+        }
+        else parseRecursion(currentCell, mainInput.getText());
     }
 
     private void parseRecursion(Cell cell, String expression) {
@@ -71,6 +76,7 @@ public class TableService implements ActionListener {
             if (values.containsKey(cell.getLink())) {
                 values.forEach((k, v) -> {
                     Cell curCell = table[k.charAt(1) - 49][k.charAt(0) - 65];
+
                     if (curCell.getExpression().contains(cell.getLink())) {
                         if (cell.getExpression().contains(curCell.getLink())) {
                             parse(cell.getLink() + " = " + cell.getExpression().replace(curCell.getLink(), "???"));
@@ -78,11 +84,10 @@ public class TableService implements ActionListener {
                         else parseRecursion(curCell, curCell.getExpression());
                     }
                 });
-                cell.setResult(values.get(cell.getLink()));
+            cell.setResult(values.get(cell.getLink()));
             }
         }
         catch (IllegalArgumentException exception) {
-            System.out.println("sts");
             if (exception.getMessage() == null)
                 mainInput.setText("Невідомі вхідні дані");
             else mainInput.setText(exception.getMessage());

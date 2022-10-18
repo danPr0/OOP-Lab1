@@ -14,6 +14,7 @@ import static util.SizeOfElements.*;
 
 public class Cell extends JButton implements ActionListener {
     private String expression = "";
+    private Double result;
     private final String link;
     private final TableService tableService;
     private final JTextField mainInput;
@@ -46,6 +47,7 @@ public class Cell extends JButton implements ActionListener {
     }
 
     public void setResult(Double result) {
+        this.result = result;
         setResult(Double.toString(new BigDecimal(result).setScale(7, RoundingMode.HALF_DOWN).stripTrailingZeros().doubleValue()));
     }
 
@@ -65,11 +67,16 @@ public class Cell extends JButton implements ActionListener {
             int fracLength = Math.min(leftLength, text.substring(2, expIndex).length());
             text = text.substring(0, 2) + text.substring(2, 2 + fracLength) + exp;
         }
+
         setText(text);
     }
 
     public String getLink() {
         return link;
+    }
+
+    public Double getResult() {
+        return result;
     }
 
     public void setSelected(boolean select) {
