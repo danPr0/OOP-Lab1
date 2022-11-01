@@ -48,7 +48,8 @@ public class Cell extends JButton implements ActionListener {
 
     public void setResult(Double result) {
         this.result = result;
-        setResult(Double.toString(new BigDecimal(result).setScale(7, RoundingMode.HALF_DOWN).stripTrailingZeros().doubleValue()));
+        if (result != null)
+            setResult(Double.toString(new BigDecimal(result).setScale(7, RoundingMode.HALF_DOWN).stripTrailingZeros().doubleValue()));
     }
 
     public void setResult(String text) {

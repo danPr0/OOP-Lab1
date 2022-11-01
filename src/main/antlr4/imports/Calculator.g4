@@ -6,13 +6,13 @@ assign: VARIABLE ' = ' expression;
 //parents: '(' expression ')';
 //expression: expression (ADD|MINUS|MUL|DIV|MOD) expression | VARIABLE | OPRAND | parents;
 expression:'(' expression ')'               # Parents
-          | expression ADD expression       # ADD
-          | expression MINUS expression     # MINUS
           | expression MUL expression       # MUL
           | expression DIV expression       # DIV
           | expression INT_DIV expression   # INT_DIV
           | expression MOD expression       # MOD
           | expression POW expression       # POW
+          | expression ADD expression       # ADD
+          | expression MINUS expression     # MINUS
           | INC expression                  # INC
           | DEC expression                  # DEC
           | VARIABLE                        # Variable
@@ -25,8 +25,8 @@ expression:'(' expression ')'               # Parents
 VARIABLE: [A-Z]+[0-9]+;
 CYCLE: '???';
 OPERAND: INT | DOUBLE;
-INT: [0-9]+('_'[0-9]+)*;
-DOUBLE: [0-9]+('_'[0-9]+)* '.' [0-9]+('_'[0-9]+)*;
+INT: ('-')*[0-9]+('_'[0-9]+)*;
+DOUBLE: ('-')*[0-9]+('_'[0-9]+)* '.' [0-9]+('_'[0-9]+)*;
 ADD: '+';
 MINUS: '-';
 MUL: '*';

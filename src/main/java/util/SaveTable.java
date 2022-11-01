@@ -3,9 +3,7 @@ package util;
 import entity.Cell;
 import frame.MyFrame;
 import jxl.Workbook;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
+import jxl.write.*;
 import service.TableService;
 
 import javax.swing.*;
@@ -13,12 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
-public class ReportCreator implements ActionListener {
+public class SaveTable implements ActionListener {
     private final TableService tableService;
     private final MyFrame myFrame;
 
-    public ReportCreator(TableService tableService, MyFrame myFrame) {
+    public SaveTable(TableService tableService, MyFrame myFrame) {
         this.tableService = tableService;
         this.myFrame = myFrame;
     }
@@ -49,15 +48,15 @@ public class ReportCreator implements ActionListener {
         WritableWorkbook workbook = Workbook.createWorkbook(file);
         WritableSheet sheet = workbook.createSheet("Report", 0);
 
-        Cell[][] table = tableService.getTable();
-        int n = tableService.getNoOfRows();
-        int m = tableService.getNoOfColumns();
+        List<List<Cell>> table = tableService.getTable();
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        for (List<Cell> row : table) {
+            for (Cell curCell : row) {
                 try {
-                    if (table[i][j].getResult() != null)
-                        sheet.addCell(new jxl.write.Number(j, i, table[i][j].getResult()));
+                    if (curCell.getExpression() != null)
+                        sheet.addCell(new Label(row.indexOf(curCell), table.indexOf(row), curCell.getExpression()));
+//                    if (curCell.getResult() != null)
+//                        sheet.addCell(new jxl.write.Number(row.indexOf(curCell), table.indexOf(row), curCell.getResult()));
                 } catch (WriteException e) {
                     e.printStackTrace();
                 }

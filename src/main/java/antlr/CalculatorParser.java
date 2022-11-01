@@ -485,84 +485,84 @@ public class CalculatorParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ADDContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MULContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(28);
 						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
 						setState(29);
-						match(ADD);
+						match(MUL);
 						setState(30);
 						expression(15);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new MINUSContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new DIVContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(31);
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(32);
-						match(MINUS);
+						match(DIV);
 						setState(33);
 						expression(14);
 						}
 						break;
 					case 3:
 						{
-						_localctx = new MULContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new INT_DIVContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(34);
 						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
 						setState(35);
-						match(MUL);
+						match(INT_DIV);
 						setState(36);
 						expression(13);
 						}
 						break;
 					case 4:
 						{
-						_localctx = new DIVContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MODContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(37);
 						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
 						setState(38);
-						match(DIV);
+						match(MOD);
 						setState(39);
 						expression(12);
 						}
 						break;
 					case 5:
 						{
-						_localctx = new INT_DIVContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new POWContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(40);
 						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
 						setState(41);
-						match(INT_DIV);
+						match(POW);
 						setState(42);
 						expression(11);
 						}
 						break;
 					case 6:
 						{
-						_localctx = new MODContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new ADDContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(43);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(44);
-						match(MOD);
+						match(ADD);
 						setState(45);
 						expression(10);
 						}
 						break;
 					case 7:
 						{
-						_localctx = new POWContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MINUSContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(46);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(47);
-						match(POW);
+						match(MINUS);
 						setState(48);
 						expression(9);
 						}
@@ -641,18 +641,18 @@ public class CalculatorParser extends Parser {
 		"\u001a\u0016\u0001\u0000\u0000\u0000\u001a\u0017\u0001\u0000\u0000\u0000"+
 		"\u001a\u0018\u0001\u0000\u0000\u0000\u001a\u0019\u0001\u0000\u0000\u0000"+
 		"\u001b3\u0001\u0000\u0000\u0000\u001c\u001d\n\u000e\u0000\u0000\u001d"+
-		"\u001e\u0005\t\u0000\u0000\u001e2\u0003\u0004\u0002\u000f\u001f \n\r\u0000"+
-		"\u0000 !\u0005\n\u0000\u0000!2\u0003\u0004\u0002\u000e\"#\n\f\u0000\u0000"+
-		"#$\u0005\u000b\u0000\u0000$2\u0003\u0004\u0002\r%&\n\u000b\u0000\u0000"+
-		"&\'\u0005\f\u0000\u0000\'2\u0003\u0004\u0002\f()\n\n\u0000\u0000)*\u0005"+
-		"\r\u0000\u0000*2\u0003\u0004\u0002\u000b+,\n\t\u0000\u0000,-\u0005\u000e"+
-		"\u0000\u0000-2\u0003\u0004\u0002\n./\n\b\u0000\u0000/0\u0005\u000f\u0000"+
-		"\u000002\u0003\u0004\u0002\t1\u001c\u0001\u0000\u0000\u00001\u001f\u0001"+
-		"\u0000\u0000\u00001\"\u0001\u0000\u0000\u00001%\u0001\u0000\u0000\u0000"+
-		"1(\u0001\u0000\u0000\u00001+\u0001\u0000\u0000\u00001.\u0001\u0000\u0000"+
-		"\u000025\u0001\u0000\u0000\u000031\u0001\u0000\u0000\u000034\u0001\u0000"+
-		"\u0000\u00004\u0005\u0001\u0000\u0000\u000053\u0001\u0000\u0000\u0000"+
-		"\u0003\u001a13";
+		"\u001e\u0005\u000b\u0000\u0000\u001e2\u0003\u0004\u0002\u000f\u001f \n"+
+		"\r\u0000\u0000 !\u0005\f\u0000\u0000!2\u0003\u0004\u0002\u000e\"#\n\f"+
+		"\u0000\u0000#$\u0005\r\u0000\u0000$2\u0003\u0004\u0002\r%&\n\u000b\u0000"+
+		"\u0000&\'\u0005\u000e\u0000\u0000\'2\u0003\u0004\u0002\f()\n\n\u0000\u0000"+
+		")*\u0005\u000f\u0000\u0000*2\u0003\u0004\u0002\u000b+,\n\t\u0000\u0000"+
+		",-\u0005\t\u0000\u0000-2\u0003\u0004\u0002\n./\n\b\u0000\u0000/0\u0005"+
+		"\n\u0000\u000002\u0003\u0004\u0002\t1\u001c\u0001\u0000\u0000\u00001\u001f"+
+		"\u0001\u0000\u0000\u00001\"\u0001\u0000\u0000\u00001%\u0001\u0000\u0000"+
+		"\u00001(\u0001\u0000\u0000\u00001+\u0001\u0000\u0000\u00001.\u0001\u0000"+
+		"\u0000\u000025\u0001\u0000\u0000\u000031\u0001\u0000\u0000\u000034\u0001"+
+		"\u0000\u0000\u00004\u0005\u0001\u0000\u0000\u000053\u0001\u0000\u0000"+
+		"\u0000\u0003\u001a13";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

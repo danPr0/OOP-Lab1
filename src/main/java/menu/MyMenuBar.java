@@ -2,7 +2,8 @@ package menu;
 
 import frame.MyFrame;
 import service.TableService;
-import util.ReportCreator;
+import util.ImportTable;
+import util.SaveTable;
 
 import javax.swing.*;
 
@@ -26,17 +27,35 @@ public class MyMenuBar extends JMenuBar implements ActionListener {
         setBounds(0, 0, MENU_WIDTH, MENU_HEIGHT);
         JMenu file = new JMenu("File");
         JMenu reference = new JMenu("Reference");
+        JMenu table = new JMenu("Table");
+
+        JMenuItem addColumn = new JMenuItem("Add column");
+        addColumn.addActionListener((e) -> tableService.addColumn());
+        JMenuItem addRow = new JMenuItem("Add row");
+        addRow.addActionListener((e) -> tableService.addRow());
+        JMenuItem removeColumn = new JMenuItem("Remove column");
+        removeColumn.addActionListener((e) -> tableService.removeLastColumn());
+        JMenuItem removeRow = new JMenuItem("Remove row");
+        removeRow.addActionListener((e) -> tableService.removeLastRow());
 
         JMenuItem saveAs = createSaveAsItem();
+        JMenuItem importAs = createImportAsItem();
         help = createHelpItem();
         JMenuItem aboutProgram = createAboutProgramItem();
 
         file.add(saveAs);
+        file.add(importAs);
         reference.add(help);
         reference.add(aboutProgram);
 
+        table.add(addColumn);
+        table.add(addRow);
+        table.add(removeColumn);
+        table.add(removeRow);
+
         add(file);
         add(reference);
+        add(table);
     }
 
     @Override
@@ -64,16 +83,26 @@ public class MyMenuBar extends JMenuBar implements ActionListener {
 
     private JMenuItem createSaveAsItem() {
         JMenuItem result = new JMenuItem("Save as");
-        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+//        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         result.setIconTextGap(0);
-        result.addActionListener(new ReportCreator(tableService, myFrame));
+        result.addActionListener(new SaveTable(tableService, myFrame));
+
+        return result;
+    }
+
+    private JMenuItem createImportAsItem() {
+        JMenuItem result = new JMenuItem("Import as");
+//        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        result.setIconTextGap(0);
+        result.addActionListener(new ImportTable(tableService, myFrame));
 
         return result;
     }
 
     private JMenuItem createHelpItem() {
-        JMenuItem result = new JMenuItem("Help                 ");
-        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+//        JMenuItem result = new JMenuItem("Help                 ");
+        JMenuItem result = new JMenuItem("Help");
+//        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         result.setIconTextGap(0);
         result.addActionListener(this);
 
@@ -82,7 +111,7 @@ public class MyMenuBar extends JMenuBar implements ActionListener {
 
     private JMenuItem createAboutProgramItem() {
         JMenuItem result = new JMenuItem("About program");
-        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+//        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         result.setIconTextGap(0);
         result.addActionListener(this);
 
