@@ -44,10 +44,14 @@ public class TableService implements ActionListener {
 
         for (int i = 0; i < n; i++) {
             List<Cell> row = new ArrayList<>();
-            for (int j = 0; j < m; j++)
-                row.add(new Cell(i, j, myFrame, mainInput, this));
+            for (int j = 0; j < m; j++) {
+                Cell cell = new Cell(i, j, mainInput, this);
+                row.add(cell);
+                myFrame.add(cell);
+            }
             table.add(row);
         }
+        //myFrame.getMainPanel().repaint();
 
         currentCell = table.get(0).get(0);
         currentCell.setSelected(true);
@@ -75,10 +79,17 @@ public class TableService implements ActionListener {
         parseRecursion(currentCell, mainInput.getText());
     }
 
-    private void parseRecursion(Cell cell, String expression) {
+    public void parseRecursion(Cell cell, String expression) {
         try {
-            if (!expression.isBlank())
-                parse(cell.getLink() + " = " + expression);
+            if (!expression.isBlank()) {
+                try {
+                    parse(cell.getLink() + " = " + expression);
+                } catch (IllegalArgumentException exception) {
+                    cell.setResult((Double) null);
+                    cell.setResult("?");
+                    values.remove(cell.getLink());
+                }
+            }
             for (List<Cell> row : table) {
                 for (Cell curCell : row) {
                     if (curCell.getExpression().contains(cell.getLink())) {
@@ -105,20 +116,41 @@ public class TableService implements ActionListener {
             for (Cell curCell : row)
                 myFrame.remove(curCell);
 
-        for (List<Cell> row : table)
-            for (Cell curCell : row)
-                myFrame.add(curCell);
+        int width = Math.min(maxNoOfColumns, table.get(0).size());
+        int height = Math.min(maxNoOfRows, table.size());
 
-        this.table = table;
-        for (List<Cell> row : table)
+//        for (List<Cell> row : table)
+//            for (Cell curCell : row)
+//                myFrame.add(curCell);
+
+        this.table = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            List<Cell> row = new ArrayList<>();
+            for (int j = 0; j < width; j++) {
+                myFrame.add(table.get(i).get(j));
+                row.add(table.get(i).get(j));
+            }
+            this.table.add(row);
+        }
+
+        for (JLabel columnName : headerRow)
+            myFrame.remove(columnName);
+        createHeaderRow(this.table.get(0).size());
+
+        for (JLabel rowName : headerColumn)
+            myFrame.remove(rowName);
+        createHeaderColumn(this.table.size());
+
+        for (List<Cell> row : this.table)
             for (Cell curCell : row)
                 parseRecursion(curCell, curCell.getExpression());
 
         myFrame.repaint();
 
-        currentCell = table.get(0).get(0);
+        currentCell = this.table.get(0).get(0);
         currentCell.setSelected(true);
         currentCell.requestFocus();
+        mainInput.setText(currentCell.getExpression());
     }
 
     public void removeLastColumn() {
@@ -159,7 +191,7 @@ public class TableService implements ActionListener {
             return;
 
         for (List<Cell> row : table) {
-            Cell cell = new Cell(table.indexOf(row), row.size(), myFrame, mainInput, this);
+            Cell cell = new Cell(table.indexOf(row), row.size(), mainInput, this);
             row.add(cell);
             myFrame.add(cell);
         }
@@ -177,7 +209,7 @@ public class TableService implements ActionListener {
 
         List<Cell> row = new ArrayList<>();
         for (int i = 0; i < table.get(0).size(); i++) {
-            Cell cell = new Cell(table.size(), i, myFrame, mainInput, this);
+            Cell cell = new Cell(table.size(), i, mainInput, this);
             row.add(cell);
             myFrame.add(cell);
         }
@@ -205,7 +237,7 @@ public class TableService implements ActionListener {
         mainInput = new JTextField();
         mainInput.setBounds(70, MENU_HEIGHT, Toolkit.getDefaultToolkit().getScreenSize().width - 70, MAIN_INPUT_HEIGHT);
         mainInput.addActionListener(this);
-        myFrame.getContentPane().add(mainInput);
+        myFrame.add(mainInput);
     }
 
     private void createInfoLabel() {
@@ -214,7 +246,7 @@ public class TableService implements ActionListener {
         infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         infoLabel.setBackground(Color.white);
         infoLabel.setOpaque(true);
-        myFrame.getContentPane().add(infoLabel);
+        myFrame.add(infoLabel);
     }
 
     private void createHeaderColumn(int n) {
@@ -229,7 +261,7 @@ public class TableService implements ActionListener {
             rowName.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
             headerColumn.add(rowName);
-            myFrame.getContentPane().add(rowName);
+            myFrame.add(rowName);
         }
     }
 
@@ -247,7 +279,7 @@ public class TableService implements ActionListener {
             columnName.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
             headerRow.add(columnName);
-            myFrame.getContentPane().add(columnName);
+            myFrame.add(columnName);
         }
     }
 
@@ -257,5 +289,9 @@ public class TableService implements ActionListener {
 
     public JTextField getMainInput() {
         return mainInput;
+    }
+
+    public Map<String, Double> getValues() {
+        return values;
     }
 }

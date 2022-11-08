@@ -60,7 +60,7 @@ public class ImportTable implements ActionListener {
             List<entity.Cell> tableRow = new ArrayList<>();
             for (int column = 0; column < sheet.getColumns(); column++) {
                 Cell cell = sheet.getCell(column, row);
-                entity.Cell tableCell = new entity.Cell(row, column, myFrame, tableService.getMainInput(), tableService);
+                entity.Cell tableCell = new entity.Cell(row, column, tableService.getMainInput(), tableService);
                 tableCell.setExpression(cell.getContents());
                 tableRow.add(tableCell);
             }

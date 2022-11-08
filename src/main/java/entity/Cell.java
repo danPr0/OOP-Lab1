@@ -19,7 +19,7 @@ public class Cell extends JButton implements ActionListener {
     private final TableService tableService;
     private final JTextField mainInput;
 
-    public Cell(int i, int j, MyFrame myFrame, JTextField mainInput, TableService tableService) {
+    public Cell(int i, int j, JTextField mainInput, TableService tableService) {
         super();
         this.tableService = tableService;
         this.mainInput = mainInput;
@@ -28,7 +28,7 @@ public class Cell extends JButton implements ActionListener {
         setBounds(j * CELL_WIDTH + ROW_NAME_WIDTH, i * CELL_HEIGHT + MAIN_INPUT_HEIGHT + COLUMN_NAME_HEIGHT + MENU_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
         setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         addActionListener(this);
-        myFrame.getContentPane().add(this);
+//        myFrame.getContentPane().add(this);
     }
 
     @Override

@@ -53,7 +53,7 @@ public class SaveTable implements ActionListener {
         for (List<Cell> row : table) {
             for (Cell curCell : row) {
                 try {
-                    if (curCell.getExpression() != null)
+                    if (!curCell.getExpression().isBlank())
                         sheet.addCell(new Label(row.indexOf(curCell), table.indexOf(row), curCell.getExpression()));
 //                    if (curCell.getResult() != null)
 //                        sheet.addCell(new jxl.write.Number(row.indexOf(curCell), table.indexOf(row), curCell.getResult()));
